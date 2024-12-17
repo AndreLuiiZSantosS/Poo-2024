@@ -17,11 +17,7 @@ class Produtos:
 
     @classmethod
     def inserir(cls, obj):
-        """
-        Insere um novo produto, atribuindo automaticamente um ID único.
-        """
         cls.abrir()
-        # Calcula o próximo ID disponível
         id = max((x.id for x in cls.objetos), default=0) + 1
         obj.id = id
         cls.objetos.append(obj)
@@ -29,25 +25,16 @@ class Produtos:
 
     @classmethod
     def listar(cls):
-        """
-        Retorna a lista completa de produtos.
-        """
         cls.abrir()
         return cls.objetos[:]
 
     @classmethod
     def listar_id(cls, id):
-        """
-        Retorna o produto correspondente ao ID informado.
-        """
         cls.abrir()
         return next((x for x in cls.objetos if x.id == id), None)
 
     @classmethod
     def atualizar(cls, obj):
-        """
-        Atualiza um produto existente com base no ID.
-        """
         cls.abrir()
         existente = cls.listar_id(obj.id)
         if existente:
@@ -59,9 +46,6 @@ class Produtos:
 
     @classmethod
     def excluir(cls, obj):
-        """
-        Exclui um produto existente com base no ID.
-        """
         cls.abrir()
         existente = cls.listar_id(obj.id)
         if existente:
@@ -72,17 +56,11 @@ class Produtos:
 
     @classmethod
     def salvar(cls):
-        """
-        Salva a lista de produtos no arquivo JSON.
-        """
         with open("produtos.json", mode="w") as arquivo:
             json.dump(cls.objetos, arquivo, default=vars)
 
     @classmethod
     def abrir(cls):
-        """
-        Carrega a lista de produtos do arquivo JSON.
-        """
         cls.objetos = []
         try:
             with open("produtos.json", mode="r") as arquivo:
